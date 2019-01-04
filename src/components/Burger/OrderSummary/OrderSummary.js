@@ -26,3 +26,6 @@ const orderSummary = (props) => {
 
 export default orderSummary;
 
+
+//Was made into a stateful Component in order to debug.
+//Converted back as it can now be a functional component.
