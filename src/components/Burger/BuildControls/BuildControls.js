@@ -13,7 +13,16 @@ const controls = [
 
 const buildControls = (props) => (
     <div className={classes.BuildControls}>
-    <Checkbox>Gluten Free</Checkbox>
+    <Checkbox
+        myCheckboxBooleanProps = {props.glutenCheckedProps}
+        myCheckboxMethodProps={props.glutenChecked}>
+        Gluten Free
+    </Checkbox>
+    <Checkbox
+        myCheckboxBooleanProps = {props.protienStyleProps}
+        myCheckboxMethodProps={props.protienStyleChecked}>
+        Protien Style
+    </Checkbox>
         <p>Current Price: <strong>$ {props.price.toFixed(2)} </strong></p>
         {controls.map(ctrl => (
             <Control key={ctrl.label} 

@@ -9,12 +9,17 @@ const orderSummary = (props) => {
             <span style={{textTransform:'capitalize'}}>{igKey}</span>: {props.ingredients[igKey]}
             </li>
     });
-    
+
+    let glutenFree = <strong>{props.glutenFree}</strong>;
+    let protienStyle = <strong>{props.protienStyle}</strong>;
+
     return (
         <Aux>
             <h3>Your Order</h3>
             <ul>
                 {ingredientSummary}
+                {glutenFree}
+                {protienStyle}
             </ul>
             <p><strong>Total: ${props.price.toFixed(2)}</strong></p>
             <p>Continue with Order?</p>

@@ -4,7 +4,6 @@ import Burger from '../../Burger/Burger';
 import BuildControls from "../../Burger/BuildControls/BuildControls";
 import Modal from '../../UI/Modal/Modal';
 import OrderSummary from '../../Burger/OrderSummary/OrderSummary';
-import Checkbox from '../../UI/Checkbox/Checkbox';
 
 const INGREDIENT_PRICES = {
     salad: 0.5,
@@ -25,14 +24,67 @@ class BurgerBuilder extends Component {
         totalPrice: 4,
         purchaseable: false,
         purchasing: false,
-        isChecked: false
+        glutenCheck: false,
+        protienStyleCheck: false,
+        isGlutenFree: null,
+        isProtienStyle: null
     }
 
     glutenCheckHandler = () => {
-        console.log("it's checked");
-        this.setState(() => ({
-            isChecked: ! this.state.isChecked
-        }));
+        this.setState(
+            prevState => ({
+                glutenCheck: !prevState.glutenCheck
+            }),
+            this.glutenPriceHandler,
+        );
+    }
+
+    glutenPriceHandler = () => {
+        this.setState(
+            prevState => {
+                let myGlutenPrice;
+                let isGlutenFree;
+                if (this.state.glutenCheck) {
+                    myGlutenPrice = 1.25;
+                    isGlutenFree = "Gluten Free";
+                } else {
+                    myGlutenPrice = -1.25;
+                    isGlutenFree = null;
+                }
+                return {
+                    totalPrice: prevState.totalPrice + myGlutenPrice,
+                    isGlutenFree: isGlutenFree
+                }
+            }
+        )
+    }
+
+
+    protienStyleCheckHandler = () => {
+        this.setState(
+            prevState => ({
+                protienStyleCheck: !prevState.protienStyleCheck
+            }),
+            this.protienStyleHandler
+        )
+    }
+
+    /*     shouldComponentUpdate = () => {
+            if(this.state.protienStyleCheck) {
+                this.state.isProtienStyle = "Protien-Style";
+            } else {
+                this.state.isProtienStyle = null;
+            } this.setState(this.state.isProtienStyle);
+        }
+             */
+
+    protienStlyeHandler = () => {
+        if (this.state.protienStyleCheck) {
+            this.state.isProtienStyle = "Protien-Style";
+        } else {
+            this.state.isProtienStyle = null;
+        }
+        this.setState(this.state.isProtienStyle);
     }
 
     updatePurchaseState(ingredients) {
@@ -41,14 +93,14 @@ class BurgerBuilder extends Component {
         }).reduce((sum, el) => {
             return sum + el;
         }, 0);
-        this.setState({purchaseable: sum > 0});
+        this.setState({ purchaseable: sum > 0 });
     }
 
     purchaseHandler = () => {
-        this.setState({purchasing: true})
+        this.setState({ purchasing: true })
     }
     purchaseCancelHandler = () => {
-        this.setState({purchasing: false});
+        this.setState({ purchasing: false });
     }
     purchaseContinueHandler = () => {
         alert('Order Complete!');
@@ -96,14 +148,18 @@ class BurgerBuilder extends Component {
         return (
             <Aux>
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
-                    <OrderSummary 
-                    ingredients={this.state.ingredients} 
-                    purchaseCancel={this.purchaseCancelHandler}
-                    purchaseContinue={this.purchaseContinueHandler}
-                    price={this.state.totalPrice}
+                    <OrderSummary
+                        ingredients={this.state.ingredients}
+                        purchaseCancel={this.purchaseCancelHandler}
+                        purchaseContinue={this.purchaseContinueHandler}
+                        price={this.state.totalPrice}
+                        glutenFree={this.state.isGlutenFree}
+                        protienStyle={this.state.isProtienStyle}
                     />
                 </Modal>
-                <Burger ingredients={this.state.ingredients} />
+                <Burger ingredients={this.state.ingredients}
+                    protienStyle={this.state.protienChecked}
+                    protienStyleProps={this.protienStyleHandler} />
                 <BuildControls
                     ingredientAdded={this.addIngredientHandler}
                     ingredientRemoved={this.removeIngredientHandler}
@@ -111,7 +167,8 @@ class BurgerBuilder extends Component {
                     price={this.state.totalPrice}
                     purchaseable={this.state.purchaseable}
                     ordered={this.purchaseHandler}
-                    clicked={this.glutenCheckHandler}
+                    glutenCheckedProps={this.state.glutenCheck}
+                    glutenChecked={this.glutenCheckHandler}
                 />
             </Aux>
         );
