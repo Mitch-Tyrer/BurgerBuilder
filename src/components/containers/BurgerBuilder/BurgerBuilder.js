@@ -4,12 +4,14 @@ import Burger from '../../Burger/Burger';
 import BuildControls from "../../Burger/BuildControls/BuildControls";
 import Modal from '../../UI/Modal/Modal';
 import OrderSummary from '../../Burger/OrderSummary/OrderSummary';
+import Checkbox from '../../UI/Checkbox/Checkbox';
 
 const INGREDIENT_PRICES = {
     salad: 0.5,
     cheese: 0.4,
     meat: 1.3,
-    bacon: 0.7
+    bacon: 0.7,
+    glutenfree: 1.25
 }
 
 class BurgerBuilder extends Component {
@@ -23,8 +25,14 @@ class BurgerBuilder extends Component {
         totalPrice: 4,
         purchaseable: false,
         purchasing: false,
+        isChecked: false
     }
 
+    glutenCheckHandler = () => {
+        this.setState(() => ({
+            isChecked: ! this.state.isChecked
+        }));
+    }
 
     updatePurchaseState(ingredients) {
         const sum = Object.keys(ingredients).map(igKey => {
@@ -83,6 +91,12 @@ class BurgerBuilder extends Component {
         for (let key in disableInfo) {
             disableInfo[key] = disableInfo[key] <= 0
         }
+
+        if (isChecked = false){
+            return null;
+        } else {
+            this.state.totalPrice + 1;
+        }
         return (
             <Aux>
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
@@ -101,6 +115,7 @@ class BurgerBuilder extends Component {
                     price={this.state.totalPrice}
                     purchaseable={this.state.purchaseable}
                     ordered={this.purchaseHandler}
+                    isChecked={this.glutenCheckHandler}
                 />
             </Aux>
         );

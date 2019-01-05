@@ -1,7 +1,8 @@
 import React from 'react';
 import classes from './BuildControls.module.css';
 import Control from './Control/Control';
-import AltBuns from "./AlternativeBuns/AlternativeBuns";
+import Checkbox from '../../UI/Checkbox/Checkbox';
+
 
 const controls = [
     {label: 'Salad', type: 'salad'},
@@ -12,8 +13,7 @@ const controls = [
 
 const buildControls = (props) => (
     <div className={classes.BuildControls}>
-        <AltBuns >Protien Style</AltBuns>
-        <AltBuns>Gluten Free</AltBuns>
+    <Checkbox>Gluten Free</Checkbox>
         <p>Current Price: <strong>$ {props.price.toFixed(2)} </strong></p>
         {controls.map(ctrl => (
             <Control key={ctrl.label} 

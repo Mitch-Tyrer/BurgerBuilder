@@ -22,9 +22,9 @@ const burger = (props) => {
 
     return (
         <div className={classes.Burger}>
-            <BurgerIngredient type={this.state.ingredients} />
+            <BurgerIngredient type="bread-top" />
             {transformedIngredients}
-            <BurgerIngredient type={this.state.ingredients} />
+            <BurgerIngredient type="bread-bottom" />
         </div>
     );
 };
