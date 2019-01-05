@@ -4,7 +4,7 @@ class Checkbox extends Component {
     render () {
         return (
             <div>
-            <input type="checkbox"/>
+            <input type="checkbox" />
             {this.props.children}
             </div>
         );

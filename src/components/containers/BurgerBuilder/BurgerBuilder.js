@@ -29,6 +29,7 @@ class BurgerBuilder extends Component {
     }
 
     glutenCheckHandler = () => {
+        console.log("it's checked");
         this.setState(() => ({
             isChecked: ! this.state.isChecked
         }));
@@ -92,11 +93,6 @@ class BurgerBuilder extends Component {
             disableInfo[key] = disableInfo[key] <= 0
         }
 
-        if (isChecked = false){
-            return null;
-        } else {
-            this.state.totalPrice + 1;
-        }
         return (
             <Aux>
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
@@ -115,7 +111,7 @@ class BurgerBuilder extends Component {
                     price={this.state.totalPrice}
                     purchaseable={this.state.purchaseable}
                     ordered={this.purchaseHandler}
-                    isChecked={this.glutenCheckHandler}
+                    clicked={this.glutenCheckHandler}
                 />
             </Aux>
         );
