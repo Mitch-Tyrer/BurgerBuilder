@@ -30,6 +30,15 @@ class BurgerIngredient extends Component{
         case ('bacon'):
             ingredient = <div className={classes.Bacon}></div>
             break;
+        case ('protien-style'):
+            ingredient = <div className={classes.SaladWrap}></div>
+            break;
+        case ('glutenfree-top'):
+            ingredient = <div className={classes.GlutenFreeTop}></div>
+            break;
+        case ('glutenfree-bottom'):
+            ingredient = <div className={classes.GlutenFreeBottom}></div>
+            break;
         default:
             ingredient = null;
     }

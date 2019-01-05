@@ -1,5 +1,7 @@
 import React from 'react';
 import classes from "./Control.module.css";
+import Aux from '../../../../hoc/Auxiliary';
+
 
 const control = (props) => (
     <div className={classes.Control}>
